@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export const BandList = ({ data, votar }) => {
+export const BandList = ({ data, votar, borrar }) => {
     console.log('Loding bands...', data);
     const [bands, setBands] = useState(data);
 
@@ -15,7 +15,8 @@ export const BandList = ({ data, votar }) => {
             if (band.id === id) {
                 band.name = nuevoNombre;
             }
-
+            
+            console.log(id);
             return band;
         }));
     }
@@ -44,7 +45,10 @@ export const BandList = ({ data, votar }) => {
                     </td>
                     <td><h3>{ band.votes }</h3></td>
                     <td>
-                        <button className="btn btn-danger">
+                        <button 
+                            className="btn btn-danger"
+                            onClick={ () => borrar( band.id ) }
+                        >
                             Borrar
                         </button>
                     </td>
