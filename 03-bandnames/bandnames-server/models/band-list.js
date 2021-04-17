@@ -10,7 +10,7 @@ class BandList {
         ];
     }
 
-    addband(name) {
+    addBand(name) {
         const newBand = new Band(name);
         this.bands.push(newBand);
         return this.bands;
