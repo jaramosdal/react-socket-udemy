@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { SocketContext } from '../context/SocketContext';
-import { useSocket } from '../hooks/useSocket';
 
 export const BandList = () => {
     
     const [bands, setBands] = useState([]);
-    const { socket } = useSocket(SocketContext);
+    const { socket } = useContext( SocketContext );
 
     useEffect(() => {
         socket.on('current-bands', (bands) => {
@@ -27,7 +26,9 @@ export const BandList = () => {
         }));
     }
 
-    const onPerdioFoco = (id, nombre) => socket.emit('cambiar-nombre-banda', { id, nombre });
+    const onPerdioFoco = (id, nombre) => {
+        socket.emit('cambiar-nombre-banda', { id, nombre });
+    }
 
     const votar = (id) => {
         socket.emit('votar-banda', id);
