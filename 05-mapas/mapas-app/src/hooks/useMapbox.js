@@ -6,6 +6,8 @@ mapboxgl.accessToken = "pk.eyJ1IjoiamFyYW1vc2RhbCIsImEiOiJja255aXMwcTEwa3JmMnZvM
 
 export const useMapbox = (puntoInicial) => {
 
+    console.log('BEGIN useMapbox');
+
     // Referencia al DIV del mapa
     const mapaDiv = useRef();
     const setRef = useCallback((node) => {
@@ -18,6 +20,27 @@ export const useMapbox = (puntoInicial) => {
     // Mapa y coords
     const mapa = useRef();
     const [coords, setCoords] = useState(puntoInicial);
+
+    // función para agregar marcadores
+    const agregarMarcador = useCallback((ev) => {
+        const { lng, lat } = ev.lngLat;
+
+        const marker = new mapboxgl.Marker();
+        marker.id = v4();
+
+        marker
+            .setLngLat([ lng, lat ])
+            .addTo(mapa.current)
+            .setDraggable(true);
+
+        marcadores.current[marker.id] = marker;
+
+        // escuchar movimientos del marcador
+        marker.on('drag', ({ target }) => {
+            const { id } = target;
+            const { lng, lat } = target.getLngLat();
+        });
+    }, [])
 
     useEffect(() => {
         const map = new mapboxgl.Map({
@@ -48,22 +71,11 @@ export const useMapbox = (puntoInicial) => {
 
     // Agregar marcadores cuando hago click
     useEffect(() => {
-        mapa.current?.on('click', (ev) => {
-            const { lng, lat } = ev.lngLat;
-
-            const marker = new mapboxgl.Marker();
-            marker.id = v4();
-
-            marker
-                .setLngLat([ lng, lat ])
-                .addTo(mapa.current)
-                .setDraggable(true);
-
-            marcadores.current[marker.id] = marker;
-        });
-    }, [])
+        mapa.current?.on('click', agregarMarcador);
+    }, [agregarMarcador])
 
     return {
+        agregarMarcador,
         coords,
         marcadores,
         setRef
