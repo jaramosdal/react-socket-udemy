@@ -1,6 +1,6 @@
 import React from 'react'
-import Searchbox from './Searchbox'
-import Sidebar from './Sidebar'
+import { Searchbox } from './Searchbox'
+import { Sidebar } from './Sidebar'
 
 const InboxPeople = () => {
     return (

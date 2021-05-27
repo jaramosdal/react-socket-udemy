@@ -6,7 +6,7 @@ import {
   } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthContext';
 
-import { ChatPage } from '../pages/ChatPage';
+import ChatPage from '../pages/ChatPage';
 import { AuthRouter } from './AuthRouter';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';

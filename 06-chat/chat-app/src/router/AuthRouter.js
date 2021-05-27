@@ -1,8 +1,8 @@
-import React from 'react'
-import { Redirect, Route, Switch } from 'react-router'
-import { LoginPage } from '../pages/LoginPage'
-import RegisterPage from '../pages/RegisterPage'
-
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router';
+import { LoginPage } from '../pages/LoginPage';
+import { RegisterPage } from '../pages/RegisterPage';
+ 
 import '../css/login-register.css';
 
 export const AuthRouter = () => {
